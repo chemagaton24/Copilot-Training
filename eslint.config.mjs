@@ -32,6 +32,7 @@ export default defineConfig([
     ".yarn",
     "**/generated/*",
     "public-storybook/mockServiceWorker.js",
+    "storybook-static/**",
   ]),
   {
     files: ["**/*.json"],
@@ -69,6 +70,7 @@ export default defineConfig([
 
     settings: {
       tailwindcss: {
+        config: "./tailwind.config.ts",
         callees: ["clsx", "cn"],
       },
     },
@@ -198,6 +200,7 @@ export default defineConfig([
       "unicorn/numeric-separators-style": "off",
       "unicorn/switch-case-braces": "off",
       yoda: ["error", "never", { onlyEquality: true }],
+      "tailwindcss/no-custom-classname": "off",
     },
   },
   {

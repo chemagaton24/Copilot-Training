@@ -13,8 +13,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" className="crime themelight">
+      <body className="bg-bg-base-primary font-body text-body-md text-text-base-primary antialiased">
+        {children}
+      </body>
     </html>
   );
 }

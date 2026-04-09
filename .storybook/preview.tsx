@@ -6,6 +6,13 @@ import { handlers } from "../src/__mocks__/handlers";
 initialize();
 
 const preview: Preview = {
+  decorators: [
+    (Story) => (
+      <div className="crime themelight min-h-screen bg-bg-base-primary">
+        <Story />
+      </div>
+    ),
+  ],
   parameters: {
     nextjs: {
       /**

@@ -1,0 +1,93 @@
+name: Run FigMagick sync
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  run-FigMagick:
+    runs-on: ubuntu-latest
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+      FIGMA_PERSONAL_ACCESS_TOKEN: ${{ secrets.FIGMA_PERSONAL_ACCESS_TOKEN }}
+      FIGMA_FILE_KEY: ${{ secrets.FIGMA_FILE_KEY }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      # Checkout the repository so that FigMagick can work on the project files.
+      - name: Checkout main branch
+        uses: actions/checkout@v3
+        with:
+          ref: main
+          persist-credentials: true
+
+      # Setup Node.js environment with GitHub Package Registry authentication.
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@codeandtheory'
+          always-auth: true
+          token: ${{ secrets.NODE_AUTH_TOKEN }}
+
+      # Manually configure npm to ensure authentication is set up.
+      - name: Configure npm authentication
+        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.NODE_AUTH_TOKEN }}" > ~/.npmrc
+
+      # Step 1: Extract tokens from Figma.
+      - name: Extract tokens from Figma
+        run: |
+          echo ${{ secrets.FIGMA_PERSONAL_ACCESS_TOKEN }}
+          echo ${{ secrets.FIGMA_FILE_KEY }}
+          npx @codeandtheory/figmagick figma-to-tokens
+
+      # Step 1.5: Clean up existing design system CSS files.
+      - name: Clean up existing DS CSS files
+        run: |
+          rm -f src/app/ds-*.css
+          echo "Cleaned up existing ds-*.css files"
+
+      # Step 2: Convert tokens to Tailwind/CSS.
+      - name: Convert tokens to Tailwind/CSS
+        run: |
+          npx @codeandtheory/figmagick tokens-to-tailwind
+
+      # Step 3: Perform post-processing on Tailwind/CSS.
+      - name: Perform post-processing on Tailwind/CSS
+        run: |
+          cp package.json package.json.bak
+          sed -i '/"type": *"module"/d' package.json
+          npx @codeandtheory/figmagick post-process-tailwind
+          mv package.json.bak package.json
+          sed -i 's/\bDEFAULT\b/default/g' tailwind.config.ts
+
+      # Clean up any traces of FigMagick.
+      - name: Clean up temporary files
+        run: |
+          rm -rf node_modules/@codeandtheory/figmagick
+          rm -f .npmrc
+
+      - name: Commit changes and open PR
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          BRANCH="chore/figmagick/update-$(date +%Y%m%d%H%M%S)"
+          git checkout -b "$BRANCH"
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m "Apply FigMagick updates"
+            git push origin "$BRANCH"
+            gh pr create \
+              --base main \
+              --head "$BRANCH" \
+              --title "Apply FigMagick updates" \
+              --body "This PR contains the latest FigMagick token and Tailwind updates."
+          else
+            echo "No changes to commit."
+          fi
