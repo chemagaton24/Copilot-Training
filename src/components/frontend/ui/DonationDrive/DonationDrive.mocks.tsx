@@ -1,7 +1,7 @@
 import type { DonationDriveProps } from "./DonationDrive";
 
 const defaultDonationDriveMock: DonationDriveProps = {
-  title: "Support Our Mission",
+  title: "Give today",
   description: (
     <p>
       The Internet provides an endless stream of content. Not all of it is worth your time.
