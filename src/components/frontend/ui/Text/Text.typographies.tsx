@@ -7,6 +7,7 @@ type TypographyTypes =
   | "heading-sm-bold"
   | "heading-xs-bold-condensed"
   | "heading-xxs-bold-condensed"
+  | "display-sm-regular"
   | "label-lg-bold-condensed"
   | "label-lg-bold"
   | "label-lg-regular"
@@ -84,6 +85,12 @@ export const textVariants: TextVariantsProps = {
     sm: "sm:font-heading-condensed sm:font-stretch-condensed sm:font-bold sm:text-heading-xs sm:tracking-heading-xs sm:leading-heading-xs",
     md: "md:font-heading-condensed md:font-stretch-condensed md:font-bold md:text-heading-xs md:tracking-heading-xs md:leading-heading-xs",
     lg: "lg:font-heading-condensed lg:font-stretch-condensed lg:font-bold lg:text-heading-xs lg:tracking-heading-xs lg:leading-heading-xs",
+  },
+  "display-sm-regular": {
+    default:
+      "font-display text-display-sm font-display-regular leading-display-sm tracking-display-sm",
+    md: "md:font-display md:text-display-sm md:font-display-regular md:leading-display-sm md:tracking-display-sm",
+    lg: "lg:font-display lg:text-display-sm lg:font-display-regular lg:leading-display-sm lg:tracking-display-sm",
   },
   "label-lg-bold-condensed": {
     default:
