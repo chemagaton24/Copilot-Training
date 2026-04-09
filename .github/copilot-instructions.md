@@ -1,0 +1,3 @@
+- Make sure there's no error and lint warnings when you finish writing code.
+- Make sure when you make a component to have similar code pattern with already existing components. Use src/components/frontend/ui/DonationDrive as a reference for the code pattern.
+- Preferable minimal update/changes as possible
