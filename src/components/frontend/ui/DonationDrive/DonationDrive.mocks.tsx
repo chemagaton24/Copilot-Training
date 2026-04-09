@@ -1,7 +1,7 @@
 import type { DonationDriveProps } from "./DonationDrive";
 
 const defaultDonationDriveMock: DonationDriveProps = {
-  title: "[main branch] Support Our Mission",
+  title: "Demo Support Our Mission",
   description: (
     <p>
       The Internet provides an endless stream of content. Not all of it is worth your time.
@@ -9,7 +9,7 @@ const defaultDonationDriveMock: DonationDriveProps = {
       sides and across mediums.
     </p>
   ),
-  tagline: "Trusted by policymakers — copy updated on main",
+  tagline: "Demo Trusted by policymakers",
   supportingText: "Would you consider supporting us today?",
   additionalText:
     "Contributing through the foundation supports essential initiatives that drive meaningful change.",
