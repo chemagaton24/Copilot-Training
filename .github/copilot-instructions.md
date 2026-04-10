@@ -1,4 +1,5 @@
-- Make sure there's no error and lint warnings when you finish writing code.
-- Make sure when you make a component to have similar code pattern with already existing components. Use src/components/frontend/ui/DonationDrive as a reference for the code pattern.
+- Make sure there's no error and lint warnings when you finish writing code
+- Make sure when you make a component to have similar code pattern with already existing components. Use src/components/frontend/ui/DonationDrive as a reference for the code pattern
 - Preferable minimal update/changes as possible
-- Reuse existing code as much as possible eg. helpers, utils, components, etc.
+- Reuse existing code as much as possible eg. helpers, utils, components, etc
+- Use Image and Link components from nextjs instead of a and img tags if project uses nextjs
