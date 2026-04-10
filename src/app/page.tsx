@@ -4,7 +4,7 @@ import { donationDriveMock } from "@/components/frontend/ui/DonationDrive/Donati
 
 export default function Home() {
   return (
-    <main className="flex flex-col items-center">
+    <main className="flex flex-col items-stretch">
       <DonationDetailMessaging />
       <DonationDrive {...donationDriveMock} />
     </main>
