@@ -1,7 +1,7 @@
 import type React from "react";
 
+import { buttonVariants } from "@/components/frontend/ui/Button/buttonVariants";
 import { Text } from "@/components/frontend/ui/Text/Text";
-import { buttonVariants } from "@/components/frontend/ui/Button/Button";
 import { CustomLink } from "@/components/frontend/ui/Link/Link";
 import { cn } from "@/utilities/ui";
 
